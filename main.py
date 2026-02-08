@@ -29,14 +29,11 @@ def download_video(url: str) -> str:
     filename = os.path.join(DOWNLOAD_DIR, f"{uuid.uuid4()}.mp4")
 
     ydl_opts = {
-        # Берём не максимальное качество, а оптимальное по весу
         "format": "bv*[height<=720][ext=mp4]+ba[ext=m4a]/mp4",
         "outtmpl": filename,
         "merge_output_format": "mp4",
         "quiet": True,
         "no_warnings": True,
-
-        # Ограничение битрейта (сильно снижает вес)
         "postprocessors": [{
             "key": "FFmpegVideoConvertor",
             "preferedformat": "mp4",
@@ -72,3 +69,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
